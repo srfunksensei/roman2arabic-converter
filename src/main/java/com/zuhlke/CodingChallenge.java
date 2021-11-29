@@ -13,7 +13,7 @@ public class CodingChallenge {
     public static final String ROMAN_FIVE_HUNDRED = "D";
     public static final String ROMAN_ONE_THOUSAND = "M";
 
-    private static final Map<String, Integer> ROMAN_TO_ARABIC_MAP = new HashMap<String, Integer>() {{
+    public static final Map<String, Integer> ROMAN_TO_ARABIC_MAP = new HashMap<String, Integer>() {{
         put(ROMAN_ONE, 1);
         put(ROMAN_FIVE, 5);
         put(ROMAN_TEN, 10);
@@ -25,6 +25,7 @@ public class CodingChallenge {
 
     public int converToArabic(final String roman) {
         // 1949 = MCMXLIX
+
 
 //        VI 6 (5 + 1 = 6)
 //        LXX 70 (50 + 10 + 10 = 70)
@@ -38,31 +39,35 @@ public class CodingChallenge {
 //        XXX 30
 
         int number = 0;
-        Character previousChar = null;
+        String previousChar = null;
 
         for (int i = 0; i < roman.length(); i++) {
-            final String stringKey = String.valueOf(roman.charAt(i));
-            if (ROMAN_TO_ARABIC_MAP.containsKey(stringKey)) {
-                final Integer possibleValue = ROMAN_TO_ARABIC_MAP.get(stringKey);
-                if (previousChar != null) {
-                    if (isCharEqualToString(previousChar, ROMAN_ONE) && ROMAN_FIVE.equals(stringKey)) {
-                        number += 3;
-                    }
+            final String currentChar = String.valueOf(roman.charAt(i));
+            if (ROMAN_TO_ARABIC_MAP.containsKey(currentChar)) {
+
+                final int value = getValue(previousChar, currentChar);
+                if (value != 0) {
+                    number += value - ROMAN_TO_ARABIC_MAP.get(previousChar);
                 } else {
-                    number += possibleValue;
-                    previousChar = stringKey.charAt(0);
+                    number += ROMAN_TO_ARABIC_MAP.get(currentChar);
                 }
+                previousChar = currentChar;
             }
         }
 
         return number;
     }
 
-    private boolean isCharEqualToString(final Character character, final String string) {
-        if (character == null || string == null) {
-            return false;
+    private int getValue(final String previousChar, final String currentChar) {
+        if (ROMAN_ONE.equals(previousChar) && ROMAN_FIVE.equals(currentChar) ||
+                ROMAN_ONE.equals(previousChar) && ROMAN_TEN.equals(currentChar) ||
+                ROMAN_TEN.equals(previousChar) && ROMAN_FIFTY.equals(currentChar) ||
+                ROMAN_TEN.equals(previousChar) && ROMAN_ONE_HUNDRED.equals(currentChar) ||
+                ROMAN_ONE_HUNDRED.equals(previousChar) && ROMAN_FIVE_HUNDRED.equals(currentChar) ||
+                ROMAN_ONE_HUNDRED.equals(previousChar) && ROMAN_ONE_THOUSAND.equals(currentChar)) {
+            return ROMAN_TO_ARABIC_MAP.get(currentChar) - ROMAN_TO_ARABIC_MAP.get(previousChar);
         }
 
-        return String.valueOf(character).equals(string);
+        return 0;
     }
 }
