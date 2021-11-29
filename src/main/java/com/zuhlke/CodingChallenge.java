@@ -5,15 +5,22 @@ import java.util.Map;
 
 public class CodingChallenge {
 
-    private static final Map<String, Integer> ROMAN_TO_ARABIC_MAP = new HashMap() {{
-        put("I", 1);
-        put("V", 5);
-        put("X", 10);
-        put("L", 50);
-        put("C", 100);
-        put("D", 500);
-        put("M", 1000);
+    public static final String ROMAN_ONE = "I";
+    public static final String ROMAN_FIVE = "V";
+    public static final String ROMAN_TEN = "X";
+    public static final String ROMAN_FIFTY = "L";
+    public static final String ROMAN_ONE_HUNDRED = "C";
+    public static final String ROMAN_FIVE_HUNDRED = "D";
+    public static final String ROMAN_ONE_THOUSAND = "M";
 
+    private static final Map<String, Integer> ROMAN_TO_ARABIC_MAP = new HashMap<String, Integer>() {{
+        put(ROMAN_ONE, 1);
+        put(ROMAN_FIVE, 5);
+        put(ROMAN_TEN, 10);
+        put(ROMAN_FIFTY, 50);
+        put(ROMAN_ONE_HUNDRED, 100);
+        put(ROMAN_FIVE_HUNDRED, 500);
+        put(ROMAN_ONE_THOUSAND, 1000);
     }};
 
     public int converToArabic(final String roman) {
@@ -32,22 +39,30 @@ public class CodingChallenge {
 
         int number = 0;
         Character previousChar = null;
-        final char[] possibleRomanNumbers = roman.trim().toCharArray();
-        for (char possibleRomanNumber : possibleRomanNumbers) {
-            String stringKey = "" + possibleRomanNumber;
+
+        for (int i = 0; i < roman.length(); i++) {
+            final String stringKey = String.valueOf(roman.charAt(i));
             if (ROMAN_TO_ARABIC_MAP.containsKey(stringKey)) {
                 final Integer possibleValue = ROMAN_TO_ARABIC_MAP.get(stringKey);
                 if (previousChar != null) {
-                    if (previousChar.toString().equals("I") && stringKey.equals("V")) {
+                    if (isCharEqualToString(previousChar, ROMAN_ONE) && ROMAN_FIVE.equals(stringKey)) {
                         number += 3;
                     }
                 } else {
                     number += possibleValue;
-                    previousChar = Character.valueOf(stringKey.charAt(0));
+                    previousChar = stringKey.charAt(0);
                 }
             }
         }
 
         return number;
+    }
+
+    private boolean isCharEqualToString(final Character character, final String string) {
+        if (character == null || string == null) {
+            return false;
+        }
+
+        return String.valueOf(character).equals(string);
     }
 }
