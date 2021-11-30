@@ -1,6 +1,5 @@
 package com.zuhlke;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,27 +10,36 @@ class CodingChallengeTest {
 
     @Test
     public void simpleConversion() {
-        assertEquals(CodingChallenge.ROMAN_TO_ARABIC_MAP.get(CodingChallenge.ROMAN_ONE), underTest.converToArabic(CodingChallenge.ROMAN_ONE));
-        assertEquals(CodingChallenge.ROMAN_TO_ARABIC_MAP.get(CodingChallenge.ROMAN_FIVE), underTest.converToArabic(CodingChallenge.ROMAN_FIVE));
-        assertEquals(CodingChallenge.ROMAN_TO_ARABIC_MAP.get(CodingChallenge.ROMAN_TEN), underTest.converToArabic(CodingChallenge.ROMAN_TEN));
-        assertEquals(CodingChallenge.ROMAN_TO_ARABIC_MAP.get(CodingChallenge.ROMAN_FIFTY), underTest.converToArabic(CodingChallenge.ROMAN_FIFTY));
-        assertEquals(CodingChallenge.ROMAN_TO_ARABIC_MAP.get(CodingChallenge.ROMAN_ONE_HUNDRED), underTest.converToArabic(CodingChallenge.ROMAN_ONE_HUNDRED));
-        assertEquals(CodingChallenge.ROMAN_TO_ARABIC_MAP.get(CodingChallenge.ROMAN_FIVE_HUNDRED), underTest.converToArabic(CodingChallenge.ROMAN_FIVE_HUNDRED));
-        assertEquals(CodingChallenge.ROMAN_TO_ARABIC_MAP.get(CodingChallenge.ROMAN_ONE_THOUSAND), underTest.converToArabic(CodingChallenge.ROMAN_ONE_THOUSAND));
-    }
-
-    @Ignore
-    public void six() {
-        assertEquals( 6, underTest.converToArabic("VI"));
+        assertEquals(Roman.I.toInt(), underTest.convertToArabic("I"));
+        assertEquals(Roman.V.toInt(), underTest.convertToArabic("V"));
+        assertEquals(Roman.X.toInt(), underTest.convertToArabic("X"));
+        assertEquals(Roman.L.toInt(), underTest.convertToArabic("L"));
+        assertEquals(Roman.C.toInt(), underTest.convertToArabic("C"));
+        assertEquals(Roman.D.toInt(), underTest.convertToArabic("D"));
+        assertEquals(Roman.M.toInt(), underTest.convertToArabic("M"));
     }
 
     @Test
     public void prefixCombination() {
-        assertEquals( 4, underTest.converToArabic("IV"));
-        assertEquals( 9, underTest.converToArabic("IX"));
-        assertEquals( 40, underTest.converToArabic("XL"));
-        assertEquals( 90, underTest.converToArabic("XC"));
-        assertEquals( 400, underTest.converToArabic("CD"));
-        assertEquals( 900, underTest.converToArabic("CM"));
+        assertEquals( 4, underTest.convertToArabic("IV"));
+        assertEquals( 9, underTest.convertToArabic("IX"));
+        assertEquals( 40, underTest.convertToArabic("XL"));
+        assertEquals( 90, underTest.convertToArabic("XC"));
+        assertEquals( 400, underTest.convertToArabic("CD"));
+        assertEquals( 900, underTest.convertToArabic("CM"));
     }
+
+    @Test
+    public void sufixCombination() {
+        assertEquals( 6, underTest.convertToArabic("VI"));
+        assertEquals( 20, underTest.convertToArabic("XX"));
+        assertEquals( 30, underTest.convertToArabic("XXX"));
+        assertEquals( 70, underTest.convertToArabic("LXX"));
+        assertEquals( 600, underTest.convertToArabic("DC"));
+        assertEquals( 1200, underTest.convertToArabic("MCC"));
+    }
+
+// 1949 = MCMXLIX
+//        XCV XC + V or 90 + 5 = 95
+//        XCIX XC + IX or 90 + 9 = 99
 }
