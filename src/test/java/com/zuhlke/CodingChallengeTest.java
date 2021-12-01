@@ -6,40 +6,47 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CodingChallengeTest {
 
-    final CodingChallenge underTest = new CodingChallenge();
-
     @Test
     public void simpleConversion() {
-        assertEquals(Roman.I.toInt(), underTest.convertToArabic("I"));
-        assertEquals(Roman.V.toInt(), underTest.convertToArabic("V"));
-        assertEquals(Roman.X.toInt(), underTest.convertToArabic("X"));
-        assertEquals(Roman.L.toInt(), underTest.convertToArabic("L"));
-        assertEquals(Roman.C.toInt(), underTest.convertToArabic("C"));
-        assertEquals(Roman.D.toInt(), underTest.convertToArabic("D"));
-        assertEquals(Roman.M.toInt(), underTest.convertToArabic("M"));
+        assertEquals(Roman.I.toInt(), CodingChallenge.convertToArabic("I"));
+        assertEquals(Roman.V.toInt(), CodingChallenge.convertToArabic("V"));
+        assertEquals(Roman.X.toInt(), CodingChallenge.convertToArabic("X"));
+        assertEquals(Roman.L.toInt(), CodingChallenge.convertToArabic("L"));
+        assertEquals(Roman.C.toInt(), CodingChallenge.convertToArabic("C"));
+        assertEquals(Roman.D.toInt(), CodingChallenge.convertToArabic("D"));
+        assertEquals(Roman.M.toInt(), CodingChallenge.convertToArabic("M"));
     }
 
     @Test
     public void prefixCombination() {
-        assertEquals( 4, underTest.convertToArabic("IV"));
-        assertEquals( 9, underTest.convertToArabic("IX"));
-        assertEquals( 40, underTest.convertToArabic("XL"));
-        assertEquals( 90, underTest.convertToArabic("XC"));
-        assertEquals( 400, underTest.convertToArabic("CD"));
-        assertEquals( 900, underTest.convertToArabic("CM"));
+        assertEquals( 4, CodingChallenge.convertToArabic("IV"));
+        assertEquals( 9, CodingChallenge.convertToArabic("IX"));
+        assertEquals( 40, CodingChallenge.convertToArabic("XL"));
+        assertEquals( 90, CodingChallenge.convertToArabic("XC"));
+        assertEquals( 400, CodingChallenge.convertToArabic("CD"));
+        assertEquals( 900, CodingChallenge.convertToArabic("CM"));
     }
 
     @Test
-    public void sufixCombination() {
-        assertEquals( 6, underTest.convertToArabic("VI"));
-        assertEquals( 20, underTest.convertToArabic("XX"));
-        assertEquals( 30, underTest.convertToArabic("XXX"));
-        assertEquals( 70, underTest.convertToArabic("LXX"));
-        assertEquals( 600, underTest.convertToArabic("DC"));
-        assertEquals( 1200, underTest.convertToArabic("MCC"));
+    public void suffixCombination() {
+        assertEquals( 6, CodingChallenge.convertToArabic("VI"));
+        assertEquals( 20, CodingChallenge.convertToArabic("XX"));
+        assertEquals( 30, CodingChallenge.convertToArabic("XXX"));
+        assertEquals( 70, CodingChallenge.convertToArabic("LXX"));
+        assertEquals( 600, CodingChallenge.convertToArabic("DC"));
+        assertEquals( 1200, CodingChallenge.convertToArabic("MCC"));
     }
-
-// 1949 = MCMXLIX
-//        XCV XC + V or 90 + 5 = 95
-//        XCIX XC + IX or 90 + 9 = 99
+    
+    @Test
+    public void complexConversion() {
+        assertEquals( 38, CodingChallenge.convertToArabic("XXXVIII"));
+        assertEquals( 42, CodingChallenge.convertToArabic("XLII"));
+        assertEquals(63, CodingChallenge.convertToArabic("LXIII"));
+        assertEquals( 95, CodingChallenge.convertToArabic("XCV"));
+        assertEquals( 99, CodingChallenge.convertToArabic("XCIX"));
+        assertEquals( 256, CodingChallenge.convertToArabic("CCLVI"));
+        assertEquals( 487, CodingChallenge.convertToArabic("CDLXXXVII"));
+        assertEquals( 974, CodingChallenge.convertToArabic("CMLXXIV"));
+        assertEquals( 1949, CodingChallenge.convertToArabic("MCMXLIX"));
+    }
 }
