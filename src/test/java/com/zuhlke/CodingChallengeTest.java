@@ -2,7 +2,7 @@ package com.zuhlke;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CodingChallengeTest {
 
@@ -48,5 +48,27 @@ class CodingChallengeTest {
         assertEquals( 487, CodingChallenge.convertToArabic("CDLXXXVII"));
         assertEquals( 974, CodingChallenge.convertToArabic("CMLXXIV"));
         assertEquals( 1949, CodingChallenge.convertToArabic("MCMXLIX"));
+    }
+
+    @Test
+    public void containsOnlyRomanLiterals_ok() {
+        assertTrue(CodingChallenge.containsOnlyRomanLiterals("XXXVIII"));
+        assertTrue(CodingChallenge.containsOnlyRomanLiterals("XLII"));
+        assertTrue(CodingChallenge.containsOnlyRomanLiterals("LXIII"));
+        assertTrue(CodingChallenge.containsOnlyRomanLiterals("XCV"));
+        assertTrue(CodingChallenge.containsOnlyRomanLiterals("XCIX"));
+        assertTrue(CodingChallenge.containsOnlyRomanLiterals("CCLVI"));
+        assertTrue(CodingChallenge.containsOnlyRomanLiterals("CDLXXXVII"));
+        assertTrue(CodingChallenge.containsOnlyRomanLiterals("CMLXXIV"));
+        assertTrue(CodingChallenge.containsOnlyRomanLiterals("MCMXLIX"));
+    }
+
+    @Test
+    public void containsOnlyRomanLiterals_notOk() {
+        assertFalse(CodingChallenge.containsOnlyRomanLiterals("XXX9012345678"));
+        assertFalse(CodingChallenge.containsOnlyRomanLiterals("XLQA"));
+        assertFalse(CodingChallenge.containsOnlyRomanLiterals("X!@#$%ˆˆ*()_+"));
+        assertFalse(CodingChallenge.containsOnlyRomanLiterals("XC,./;''[]IX"));
+        assertFalse(CodingChallenge.containsOnlyRomanLiterals("<>?:\"{}~§CCLVI"));
     }
 }
