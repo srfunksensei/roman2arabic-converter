@@ -71,4 +71,13 @@ class CodingChallengeTest {
         assertFalse(CodingChallenge.containsOnlyRomanLiterals("XC,./;''[]IX"));
         assertFalse(CodingChallenge.containsOnlyRomanLiterals("<>?:\"{}~§CCLVI"));
     }
+
+    @Test
+    public void conversionWithInvalidInput() {
+        assertThrows(IllegalArgumentException.class, () -> CodingChallenge.convertToArabic("XXX9012345678"));
+        assertThrows(IllegalArgumentException.class, () -> CodingChallenge.convertToArabic("XLQA"));
+        assertThrows(IllegalArgumentException.class, () -> CodingChallenge.convertToArabic("X!@#$%ˆˆ*()_+"));
+        assertThrows(IllegalArgumentException.class, () -> CodingChallenge.convertToArabic("XC,./;''[]IX"));
+        assertThrows(IllegalArgumentException.class, () -> CodingChallenge.convertToArabic("<>?:\"{}~§CCLVI"));
+    }
 }

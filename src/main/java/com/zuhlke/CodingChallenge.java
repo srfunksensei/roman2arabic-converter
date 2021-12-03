@@ -22,6 +22,10 @@ public class CodingChallenge {
     }
 
     public static int convertToArabic(final String input) {
+        if (!containsOnlyRomanLiterals(input)) {
+            throw new IllegalArgumentException("Input contains characters which cannot be treated as roman numerals");
+        }
+        
         final List<Roman> romans = input.chars()
                 .mapToObj(c -> (char) c)
                 .map(c -> Character.toString(c))
